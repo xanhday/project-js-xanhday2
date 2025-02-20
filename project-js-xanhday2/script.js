@@ -14,7 +14,7 @@ const play = document.querySelector(".play"),
   volumeIcon = document.querySelector("#volume-icon"),
   currentVolume = document.querySelector("#volume"),
   //
-  autoPlayBtn = document.querySelector(".play-all"),
+  autoPlay = document.querySelector(".play-all"),
   //
   hamBurger = document.querySelector(".fa-bars"),
   closeIcon = document.querySelector(".fa-times"),
@@ -31,6 +31,8 @@ const play = document.querySelector(".play"),
 
   // All Event Listeners
   play.addEventListener("click", justPlay);
+  next.addEventListener("click", nextSong);
+  previous.addEventListener("click", prevSong);
 
   // Load Tracks
   function loadTrack(indexTrack) {
@@ -60,5 +62,29 @@ const play = document.querySelector(".play"),
     track.pause();
     songIsPlaying = false;
     play.innerHTML = '<i class="fas fa-play"></i>';
+  }
+
+  // Next song
+  function nextSong() {
+    if (indexTrack < trackList.length - 1) {
+      indexTrack++;
+      loadTrack(indexTrack);
+      playSong();
+    }else {
+      indexTrack = 0;
+      loadTrack(indexTrack);
+      playSong();
+    }
+  }
+  function prevSong() {
+    if (indexTrack > 0) {
+      indexTrack--;
+      loadTrack(indexTrack);
+      playSong();
+    }else {
+      indexTrack = 0;
+      loadTrack(indexTrack);
+      playSong();
+    }
   }
 
