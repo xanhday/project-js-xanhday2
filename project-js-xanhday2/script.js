@@ -14,7 +14,7 @@ const play = document.querySelector(".play"),
   volumeIcon = document.querySelector("#volume-icon"),
   currentVolume = document.querySelector("#volume"),
   //
-  autoPlay = document.querySelector(".play-all"),
+  autoPlayBtn = document.querySelector(".play-all"),
   //
   hamBurger = document.querySelector(".fa-bars"),
   closeIcon = document.querySelector(".fa-times"),
@@ -33,6 +33,11 @@ const play = document.querySelector(".play"),
   play.addEventListener("click", justPlay);
   next.addEventListener("click", nextSong);
   previous.addEventListener("click", prevSong);
+  autoPlayBtn.addEventListener("click", autoPlayToggle);
+  volumeIcon.addEventListener("click", muteSound);
+  currentVolume.addEventListener("change", changeVolume);
+  slider.addEventListener("change", changeDuration);
+
 
   // Load Tracks
   function loadTrack(indexTrack) {
@@ -88,3 +93,32 @@ const play = document.querySelector(".play"),
     }
   }
 
+  // Mute Volume
+  function muteSound() {
+    track.volume = 0;
+    showVolume.innerHTML = 0;
+    currentVolume.value = 0;
+  }
+
+  // Change Volume
+  function changeVolume() {
+    showVolume.value = currentVolume.value;
+    track.volume = currentVolume.value / 100;
+  }
+
+  //Change Duration
+  function changeDuration() {
+    let sliderPositon = track.duration * (slider.value / 100);
+    track.currentTime = sliderPositon;
+  }
+
+  // Auto Play
+  function autoPlayToggle() {
+    if (autoplay == 0) {
+      autoplay = 1;
+      autoPlayBtn.style.background = "#db6400";
+    } else {
+      autoplay = 0;
+      autoPlayBtn.style.background = "#ccc";
+    }
+  }
